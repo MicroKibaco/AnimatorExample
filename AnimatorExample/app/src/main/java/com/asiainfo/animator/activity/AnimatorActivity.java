@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,7 +65,7 @@ public class AnimatorActivity extends Activity implements Animator.AnimatorListe
                 animator.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                       super.onAnimationEnd(animation);
+                        super.onAnimationEnd(animation);
                         Toast.makeText(AnimatorActivity.this, "anim结束啦!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -77,13 +78,37 @@ public class AnimatorActivity extends Activity implements Animator.AnimatorListe
                 //handleTransAnim();
                 //handleObjAnim();
                 //handleValuesHolder();
-                handleAnimSet();
+                //handleAnimSet();
+                handleVueAnim(view);
 
                 break;
 
             default:
                 break;
         }
+    }
+
+    private void handleVueAnim(View view) {
+
+        final Button button = (Button) view;
+
+        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+
+        animator.setDuration(6000);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+
+                Integer value = (Integer) animation.getAnimatedValue();
+
+                button.setText("" + value);
+
+            }
+        });
+
+        animator.start();
+
     }
 
     private void handleAnimSet() {
