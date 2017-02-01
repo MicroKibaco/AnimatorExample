@@ -5,8 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -79,7 +81,8 @@ public class AnimatorActivity extends Activity implements Animator.AnimatorListe
                 //handleObjAnim();
                 //handleValuesHolder();
                 //handleAnimSet();
-                handleVueAnim(view);
+                handleVueAnimofInt(view);
+                // handleVueAnimofObj(view);
 
                 break;
 
@@ -88,7 +91,21 @@ public class AnimatorActivity extends Activity implements Animator.AnimatorListe
         }
     }
 
-    private void handleVueAnim(View view) {
+    private void handleVueAnimofObj(View view) {
+
+        ValueAnimator.ofObject(new TypeEvaluator<PointF>() {
+
+            @Override
+            public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
+
+                return null;
+
+            }
+        });
+
+    }
+
+    private void handleVueAnimofInt(View view) {
 
         final Button button = (Button) view;
 
