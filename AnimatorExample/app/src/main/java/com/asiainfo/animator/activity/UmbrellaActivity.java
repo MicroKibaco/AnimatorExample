@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 
 import com.asiainfo.animator.R;
@@ -69,6 +70,7 @@ public class UmbrellaActivity extends Activity implements View.OnClickListener {
 
             ObjectAnimator translationY = ObjectAnimator.ofFloat(mImageViewList.get(i), "translationY", i * 200, 0f);
             translationY.setDuration(500);
+            translationY.setInterpolator(new BounceInterpolator());
             translationY.setStartDelay(i * 300);
             translationY.start();
             flag = true;
@@ -83,6 +85,7 @@ public class UmbrellaActivity extends Activity implements View.OnClickListener {
 
             ObjectAnimator translationY = ObjectAnimator.ofFloat(mImageViewList.get(i), "translationY", 0f, i * 200);
             translationY.setDuration(500);
+            translationY.setInterpolator(new BounceInterpolator());
             translationY.setStartDelay(i * 300);
             translationY.start();
             flag = false;
