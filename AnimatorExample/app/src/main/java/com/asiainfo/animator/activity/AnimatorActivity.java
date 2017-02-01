@@ -8,6 +8,7 @@ import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.View;
@@ -62,16 +63,9 @@ public class AnimatorActivity extends Activity implements Animator.AnimatorListe
 
             case R.id.btn_click:
 
-                ObjectAnimator animator = ObjectAnimator.ofFloat(mImvAnimator, "alpha", 0f, 1f);
-                animator.setDuration(1000);
-                animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        Toast.makeText(AnimatorActivity.this, "anim结束啦!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                animator.start();
+                handleObjAnimator();
+
+                startActivity(new Intent(this, UmbrellaActivity.class));
 
                 break;
 
@@ -89,6 +83,19 @@ public class AnimatorActivity extends Activity implements Animator.AnimatorListe
             default:
                 break;
         }
+    }
+
+    private void handleObjAnimator() {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(mImvAnimator, "alpha", 0f, 1f);
+        animator.setDuration(1000);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                Toast.makeText(AnimatorActivity.this, "anim结束啦!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        animator.start();
     }
 
     private void handleVueAnimofObj(View view) {
