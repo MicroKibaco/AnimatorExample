@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.asiainfo.animator.R;
 
@@ -59,6 +60,7 @@ public class UmbrellaActivity extends Activity implements View.OnClickListener {
                 break;
 
             default:
+                Toast.makeText(this, "click" + v.getId(), Toast.LENGTH_SHORT).show();
                 break;
 
         }
