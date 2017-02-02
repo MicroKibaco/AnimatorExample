@@ -63,7 +63,7 @@ public class FlowLayout extends ViewGroup {
             int childHight = child.getMeasuredHeight();
 
             //如果需要换行
-            if (childWidth + lineWidth + lineHight + lp.leftMargin + lp.rightMargin > width) {
+            if (childWidth + lineWidth + lineHight + lp.leftMargin + lp.rightMargin > width - getPaddingLeft() - getPaddingRight()) {
 
                 //记录lineHeight
                 mLineHight.add(lineHight);
@@ -91,8 +91,8 @@ public class FlowLayout extends ViewGroup {
         mAllViews.add(lineViews);
 
         //设置view的位置
-        int left = 0;
-        int top = 0;
+        int left = getPaddingLeft();
+        int top = getPaddingTop();
 
         //行数
         int lineNum = mAllViews.size();
@@ -125,7 +125,7 @@ public class FlowLayout extends ViewGroup {
 
             }
 
-            left = 0;
+            left = getPaddingLeft();
             top += lineHight;
         }
 
@@ -167,7 +167,7 @@ public class FlowLayout extends ViewGroup {
             //子view占据的高度
             int childHight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
-            if (lineWidth + childWidth > sizeWidth) {
+            if (lineWidth + childWidth > sizeWidth - getPaddingLeft() - getPaddingRight()) {
 
                 //换行
                 //对比得到最大的宽度
@@ -190,8 +190,8 @@ public class FlowLayout extends ViewGroup {
 
             //最后一个控件
             if (i == cCount - 1) {
-                width = Math.max(lineWidth, width);
                 height += lineHight;
+                width = Math.max(lineWidth, width);
             }
 
         }
@@ -199,8 +199,8 @@ public class FlowLayout extends ViewGroup {
         Log.e("TAG", "sizeHigh = " + sizeHigh);
 
         setMeasuredDimension(
-                modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width,
-                modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height);
+                modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingLeft() + getPaddingRight(),
+                modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height + getTop() + getPaddingBottom());
     }
 
     /**
