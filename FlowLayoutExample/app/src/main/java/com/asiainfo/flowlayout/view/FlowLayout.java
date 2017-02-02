@@ -15,34 +15,36 @@ import java.util.List;
  */
 
 public class FlowLayout extends ViewGroup {
-    /**
-     * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2/2/17/14:26 描述:存储所有的view
-     */
 
+    //存储所有的view
     private List<List<View>> mAllViews = new ArrayList<>();
-    /**
-     * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2/2/17/14:28 描述:每一行的高度
-     */
+
+    //每一行的高度
     private List<Integer> mLineHight = new ArrayList<>();
 
+    /**
+     * 作者:小木箱 创建时间:2/2/17/15:42 描述:三个构造方法调用的时间是,我们在布局文件书写自定义控件,并且书写自定义属性
+     */
+
     public FlowLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public FlowLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
     }
+
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
         mAllViews.clear();
         mLineHight.clear();
-
         //当前viewGroup的宽度
         int width = getWidth();
         int lineHight = 0;
@@ -62,6 +64,7 @@ public class FlowLayout extends ViewGroup {
 
             //如果需要换行
             if (childWidth + lineWidth + lineHight + lp.leftMargin + lp.rightMargin > width) {
+
                 //记录lineHeight
                 mLineHight.add(lineHight);
 
@@ -128,6 +131,7 @@ public class FlowLayout extends ViewGroup {
 
     }
 
+    //父级在onMeasure方法传来的两个控件测量值--宽度的测量:withMeasureSpec,高度的测量:heightMeasureSpec
     @Override
     protected void onMeasure(int withMeasureSpec, int heightMeasureSpec) {
 
@@ -137,7 +141,7 @@ public class FlowLayout extends ViewGroup {
         int sizeHigh = MeasureSpec.getSize(heightMeasureSpec);
         int modeHigh = MeasureSpec.getMode(heightMeasureSpec);
 
-        //wrap_content
+        //存储wrap_content的宽高值
 
         int width = 0;
         int height = 0;
@@ -200,6 +204,10 @@ public class FlowLayout extends ViewGroup {
                 , modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height
         );
     }
+
+    /**
+     * 作者:小木箱 邮箱:569015640@qq.com 创建时间:2/2/17/15:48 描述:与当前ViewGroup对应的LayOutParams
+     */
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
