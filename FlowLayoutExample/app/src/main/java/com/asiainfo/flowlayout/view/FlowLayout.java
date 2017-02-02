@@ -116,10 +116,10 @@ public class FlowLayout extends ViewGroup {
                 int lc = left + lp.leftMargin;
                 int tc = top + lp.topMargin;
                 int rc = lc + child.getMeasuredWidth();
-                int rb = child.getMeasuredHeight();
+                int bc = tc + child.getMeasuredHeight();
 
                 //为子view进行布局
-                child.layout(lc, tc, rc, rb);
+                child.layout(lc, tc, rc, bc);
 
                 left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
 
@@ -189,7 +189,7 @@ public class FlowLayout extends ViewGroup {
             }
 
             //最后一个控件
-            if (i == cCount) {
+            if (i == cCount - 1) {
                 width = Math.max(lineWidth, width);
                 height += lineHight;
             }
