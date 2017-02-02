@@ -167,8 +167,9 @@ public class FlowLayout extends ViewGroup {
             //子view占据的高度
             int childHight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
-            if (lineWidth + childHight > sizeWidth) {
+            if (lineWidth + childWidth > sizeWidth) {
 
+                //换行
                 //对比得到最大的宽度
                 width = Math.max(width, lineWidth);
                 //重置linewidth
@@ -188,9 +189,7 @@ public class FlowLayout extends ViewGroup {
             }
 
             //最后一个控件
-
             if (i == cCount) {
-
                 width = Math.max(lineWidth, width);
                 height += lineHight;
             }
@@ -200,9 +199,8 @@ public class FlowLayout extends ViewGroup {
         Log.e("TAG", "sizeHigh = " + sizeHigh);
 
         setMeasuredDimension(
-                modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width
-                , modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height
-        );
+                modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width,
+                modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height);
     }
 
     /**
