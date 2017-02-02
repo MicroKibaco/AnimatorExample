@@ -23,7 +23,7 @@ public class FlowLayout extends ViewGroup {
     private List<Integer> mLineHight = new ArrayList<>();
 
     /**
-     * 作者:小木箱 创建时间:2/2/17/15:42 描述:三个构造方法调用的时间是,我们在布局文件书写自定义控件,并且书写自定义属性
+     * 描述:三个构造方法调用的时间是,我们在布局文件书写自定义控件,并且书写自定义属性
      */
 
     public FlowLayout(Context context) {
