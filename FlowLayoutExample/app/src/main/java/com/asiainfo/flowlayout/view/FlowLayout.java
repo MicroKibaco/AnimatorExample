@@ -200,7 +200,7 @@ public class FlowLayout extends ViewGroup {
 
         setMeasuredDimension(
                 modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingLeft() + getPaddingRight(),
-                modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height + getTop() + getPaddingBottom());
+                modeHigh == MeasureSpec.EXACTLY ? sizeHigh : height + getPaddingTop() + getPaddingBottom());
     }
 
     /**
