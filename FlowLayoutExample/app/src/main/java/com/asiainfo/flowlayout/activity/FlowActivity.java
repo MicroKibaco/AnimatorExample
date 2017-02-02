@@ -2,8 +2,8 @@ package com.asiainfo.flowlayout.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import com.asiainfo.flowlayout.R;
 import com.asiainfo.flowlayout.view.FlowLayout;
@@ -28,15 +28,25 @@ public class FlowActivity extends Activity {
 
     private void initDatas() {
 
-        for (int i = 0; i < mValues.length; i++) {
+    /*    for (int i = 0; i < mValues.length; i++) {
             Button btn = new Button(this);
 
             ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams
                     (ViewGroup.MarginLayoutParams.WRAP_CONTENT, ViewGroup.MarginLayoutParams.WRAP_CONTENT);
 
-            btn.setText(mValues[i]);
+            btn.setText(mValues[i])
             mFlowLayout.addView(btn, lp);
 
+
+        }*/
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        for (int i = 0; i < mValues.length; i++) {
+
+            TextView view = (TextView) inflater.inflate(R.layout.tv, mFlowLayout, false);
+            view.setText(mValues[i]);
+            mFlowLayout.addView(view);
 
         }
     }
