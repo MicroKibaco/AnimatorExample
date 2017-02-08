@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2017年02月08日16点55分 描述:
+ * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2017年02月08日16点55分 描述:模拟数据源
  */
 public class FestivalLib {
 
@@ -37,6 +37,7 @@ public class FestivalLib {
         mMsgList.add(new MsgBean(6, 1, "在新的一年里，祝您：事业正当午，身体壮如虎，金钱不胜数，干活不辛苦，悠闲像老鼠，浪漫似乐谱，快乐莫你属。鸡年新春快乐！"));
         mMsgList.add(new MsgBean(7, 1, "抢在新春前头，抢在爆竹前头，抢在欢腾的前头，抢在陶醉的前头，抢在将要到来的铺天盖地的短信前头，为的是您能听清我真挚的祝福！祝鸡年春节快乐！"));
         mMsgList.add(new MsgBean(8, 1, "春风洋溢着你，家人关心你，爱滋润着你，财神系着你，朋友忠于你，我这祝福你，幸运之星永远照着你。"));
+        mMsgList.add(new MsgBean(9, 1, "春风洋溢着你，家人关心你，爱滋润着你，财神系着你，朋友忠于你，我这祝福你，幸运之星永远照着你。"));
 
     }
 
@@ -46,11 +47,11 @@ public class FestivalLib {
 
     }
 
-    private List<MsgBean> getMsgsByFestivalById(int fesId) {
+    public List<MsgBean> getMsgsByFestivalById(int fesId) {
 
         List<MsgBean> msgs = new ArrayList<>();
 
-        for (MsgBean msg : msgs) {
+        for (MsgBean msg : mMsgList) {
 
             if (msg.getFestivalId() == fesId) {
 

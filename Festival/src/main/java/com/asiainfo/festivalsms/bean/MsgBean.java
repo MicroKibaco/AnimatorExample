@@ -1,7 +1,7 @@
 package com.asiainfo.festivalsms.bean;
 
 /**
- * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2017年02月08日18点17分 描述:
+ * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2017年02月08日18点17分 描述:被选短信实体类
  */
 public class MsgBean {
 
