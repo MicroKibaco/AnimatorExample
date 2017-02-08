@@ -25,4 +25,8 @@ public class Festival {
         this.name = name;
     }
 
+    public Festival(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
