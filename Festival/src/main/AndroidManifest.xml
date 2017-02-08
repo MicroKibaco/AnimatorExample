@@ -8,13 +8,15 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.asiainfo.festivalsms.activity.FestivalSmsActivity">
+        <activity android:name=".activity.FestivalSmsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.SendMsgActivity"/>
         <activity android:name=".activity.ChooseMsgActivity"/>
     </application>
 

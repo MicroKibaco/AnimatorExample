@@ -16,6 +16,7 @@ import com.asiainfo.festivalsms.R;
 import com.asiainfo.festivalsms.bean.FestivalLib;
 import com.asiainfo.festivalsms.bean.MsgBean;
 import com.asiainfo.festivalsms.fragment.FestivalCategoryFragment;
+import com.asiainfo.festivalsms.utils.JumpUtil;
 
 /**
  * 作者:小木箱 邮箱:yangzy3@asiainfo.com 创建时间:2017年02月08日18点16分 描述:
@@ -39,24 +40,21 @@ public class ChooseMsgActivity extends Activity implements View.OnClickListener 
         initEvent();
     }
 
+
     private void initEvent() {
 
-        mFabToSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        mFabToSend.setOnClickListener(this);
 
     }
 
 
     private void initView() {
+        mFestivalId = getIntent().getIntExtra(FestivalCategoryFragment.ID_FESTIVAL,-1);
+        setTitle(FestivalLib.getInstance().getFestivalById(mFestivalId).getName());
 
         mLvMsg = (ListView) findViewById(R.id.id_lv_msgs);
         mFabToSend = (FloatingActionButton) findViewById(R.id.id_fab_toSend);
         mInflater = LayoutInflater.from(this);
-        mFestivalId = getIntent().getIntExtra(FestivalCategoryFragment.ID_FESTIVAL,-1);
 
 
         mLvMsg.setAdapter(mAdapter = new ArrayAdapter<MsgBean>(this,-1,
@@ -64,7 +62,7 @@ public class ChooseMsgActivity extends Activity implements View.OnClickListener 
 
             @NonNull
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(final int position, View convertView, ViewGroup parent) {
                 if (convertView == null){
 
                     convertView = mInflater.inflate(R.layout.item_msg,parent,false);
@@ -73,10 +71,12 @@ public class ChooseMsgActivity extends Activity implements View.OnClickListener 
                 TextView content = (TextView) convertView.findViewById(R.id.id_tv_content);
                 Button tosend = (Button) convertView.findViewById(R.id.id_btn_to_send);
 
-                content.setText(getItem(position).getContent());
+                content.setText("  "+getItem(position).getContent());
                 tosend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        JumpUtil.toActivity(ChooseMsgActivity.this,mFestivalId,getItem(position).getId());
 
                     }
                 });
@@ -92,6 +92,12 @@ public class ChooseMsgActivity extends Activity implements View.OnClickListener 
         switch (v.getId()){
 
             case R.id.id_btn_to_send:
+
+                break;
+
+            case R.id.id_fab_toSend:
+
+                JumpUtil.toActivity(ChooseMsgActivity.this,mFestivalId,-1);
                 break;
 
         }
