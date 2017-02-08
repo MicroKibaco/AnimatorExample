@@ -17,8 +17,6 @@ public class FestivalSmsActivity extends FragmentActivity implements View.OnClic
     private TabLayout mSmsTablayout;
     private ViewPager mSmsViewPager;
 
-    //getResources().getStringArray(R.array.tab_titles)
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
