@@ -88,8 +88,10 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
         mDeliverPi = PendingIntent.getBroadcast(this, 0, deliverIntent, 0);
 
         registerReceiver(mSendBroadcastReceiver = new BroadcastReceiver() {
+
             @Override
             public void onReceive(Context context, Intent intent) {
+                mMsgSendCount++;
 
                 if (getResultCode() == RESULT_OK) {
 
@@ -104,7 +106,6 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
                 Toast.makeText(context, "短信发送成功:" + mMsgSendCount + "/" + mToTalCount, Toast.LENGTH_SHORT).show();
 
-                mMsgSendCount++;
                 if (mMsgSendCount == mToTalCount) {
 
                     finish();
