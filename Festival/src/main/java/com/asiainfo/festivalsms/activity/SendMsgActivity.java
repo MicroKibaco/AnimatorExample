@@ -102,6 +102,8 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
                 }
 
+                Toast.makeText(context, "短信发送成功:" + mMsgSendCount + "/" + mToTalCount, Toast.LENGTH_SHORT).show();
+
                 mMsgSendCount++;
                 if (mMsgSendCount == mToTalCount) {
 
