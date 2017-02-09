@@ -23,10 +23,14 @@ import com.asiainfo.festivalsms.utils.JumpUtil;
  */
 public class ChooseMsgActivity extends Activity implements View.OnClickListener {
 
+    //祝福短信条目
     private ListView mLvMsg;
+
+    //浮点发送控件Button
     private FloatingActionButton mFabToSend;
 
     private ArrayAdapter<MsgBean> mAdapter;
+
     private int mFestivalId;
 
     private LayoutInflater mInflater;
@@ -38,6 +42,7 @@ public class ChooseMsgActivity extends Activity implements View.OnClickListener 
 
         initView();
         initEvent();
+
     }
 
 
@@ -49,12 +54,12 @@ public class ChooseMsgActivity extends Activity implements View.OnClickListener 
 
 
     private void initView() {
+        mInflater = LayoutInflater.from(this);
         mFestivalId = getIntent().getIntExtra(FestivalCategoryFragment.ID_FESTIVAL,-1);
         setTitle(FestivalLib.getInstance().getFestivalById(mFestivalId).getName());
 
         mLvMsg = (ListView) findViewById(R.id.id_lv_msgs);
         mFabToSend = (FloatingActionButton) findViewById(R.id.id_fab_toSend);
-        mInflater = LayoutInflater.from(this);
 
 
         mLvMsg.setAdapter(mAdapter = new ArrayAdapter<MsgBean>(this,-1,
