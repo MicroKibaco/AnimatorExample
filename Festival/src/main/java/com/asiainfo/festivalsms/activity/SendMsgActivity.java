@@ -2,7 +2,11 @@ package com.asiainfo.festivalsms.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,16 +17,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asiainfo.festivalsms.R;
 import com.asiainfo.festivalsms.bean.Festival;
 import com.asiainfo.festivalsms.bean.FestivalLib;
 import com.asiainfo.festivalsms.bean.MsgBean;
+import com.asiainfo.festivalsms.business.SmsBiz;
 import com.asiainfo.festivalsms.utils.JumpUtil;
 import com.asiainfo.festivalsms.view.FlowLayout;
 
@@ -30,8 +37,14 @@ import java.util.HashSet;
 
 public class SendMsgActivity extends Activity implements View.OnClickListener {
 
+    public static final String ACTION_SEND_MSG = "action_send_msg";
+    public static final String ACTION_DELIVER_MSG = "action_deliver_msg";
     private static final int CODE_REQUEST = 1001;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1;
+    private PendingIntent mSendPi;
+    private PendingIntent mDeliverPi;
+    private BroadcastReceiver mSendBroadcastReceiver;
+    private BroadcastReceiver mDeliverBroadcastReceiver;
 
     private int mFestivalId;
     private int msgId;
@@ -47,8 +60,12 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
     private HashSet<String> mContactNames = new HashSet<>();
     private HashSet<String> mContactNums = new HashSet<>();
+    private SmsBiz mSmsBiz = new SmsBiz();
 
     private LayoutInflater mInflater;
+    private String mMsg;
+    private int mMsgSendCount;
+    private int mToTalCount;
 
 
     @Override
@@ -58,11 +75,68 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
         initView();
         initListener();
         initDatas();
+        initReceiver();
+    }
+
+
+    private void initReceiver() {
+
+        Intent sendIntent = new Intent(ACTION_SEND_MSG);
+        mSendPi = PendingIntent.getBroadcast(this, 0, sendIntent, 0);
+
+        Intent deliverIntent = new Intent(ACTION_DELIVER_MSG);
+        mDeliverPi = PendingIntent.getBroadcast(this, 0, deliverIntent, 0);
+
+        registerReceiver(mSendBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                if (getResultCode() == RESULT_OK) {
+
+                    Log.e("SendMsgActivity", "短信发送成功" + mMsgSendCount + "/" + mToTalCount);
+
+
+                } else {
+
+                    Log.e("SendMsgActivity", "短信发送失败");
+
+                }
+
+                mMsgSendCount++;
+                if (mMsgSendCount == mToTalCount) {
+
+                    finish();
+
+                }
+
+            }
+        }, new IntentFilter(ACTION_SEND_MSG));
+
+        registerReceiver(mDeliverBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                if (getResultCode() == RESULT_OK) {
+
+                    Log.e("SendMsgActivity", "联系人已经成功接收到我们的短信");
+
+
+                } else {
+
+                    Log.e("SendMsgActivity", "联系人没有接收到我们的短信");
+
+                }
+
+            }
+        }, new IntentFilter(ACTION_DELIVER_MSG));
+
+
     }
 
     private void initListener() {
 
         mBtnAdd.setOnClickListener(this);
+        mFabSend.setOnClickListener(this);
 
     }
 
@@ -195,7 +269,43 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
                 break;
 
+            case R.id.id_fab_send:
+
+                mMsg = mEdMsg.getText().toString();
+
+                if (mContactNums.size() == 0) {
+
+                    Toast.makeText(this, "请先选择联系人", Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+
+                if (TextUtils.isEmpty(mMsg)) {
+
+                    Toast.makeText(this, "短信内容不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+
+                mLayoutLoading.setVisibility(View.VISIBLE);
+                mToTalCount = mSmsBiz.sendMsg(mContactNums, mMsg, mSendPi, mDeliverPi);
+                mMsgSendCount = 0;
+
+                break;
+
+            default:
+
+                break;
+
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unregisterReceiver(mSendBroadcastReceiver);
+        unregisterReceiver(mDeliverBroadcastReceiver);
     }
 }
