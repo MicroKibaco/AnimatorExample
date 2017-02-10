@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.asiainfo.festivalsms.R;
 import com.asiainfo.festivalsms.fragment.FestivalCategoryFragment;
+import com.asiainfo.festivalsms.fragment.SmsHistoryFragment;
 
 public class FestivalSmsActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -37,6 +38,11 @@ public class FestivalSmsActivity extends FragmentActivity implements View.OnClic
         mSmsViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+                if (position == 1) {
+
+                    return new SmsHistoryFragment();
+
+                }
                 return new FestivalCategoryFragment();
             }
 
