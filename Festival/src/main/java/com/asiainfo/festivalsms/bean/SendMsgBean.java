@@ -15,6 +15,7 @@ public class SendMsgBean {
     public static final String COLUMN_NAMES = "names";
     public static final String COLUMN_FES_NAME = "festivalName";
     public static final String COLUMN_DATE = "date";
+
     private int id;
     private String msg;
     private String numbers;

@@ -29,6 +29,7 @@ import com.asiainfo.festivalsms.R;
 import com.asiainfo.festivalsms.bean.Festival;
 import com.asiainfo.festivalsms.bean.FestivalLib;
 import com.asiainfo.festivalsms.bean.MsgBean;
+import com.asiainfo.festivalsms.bean.SendMsgBean;
 import com.asiainfo.festivalsms.business.SmsBiz;
 import com.asiainfo.festivalsms.utils.JumpUtil;
 import com.asiainfo.festivalsms.view.FlowLayout;
@@ -60,7 +61,7 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
     private HashSet<String> mContactNames = new HashSet<>();
     private HashSet<String> mContactNums = new HashSet<>();
-    private SmsBiz mSmsBiz = new SmsBiz();
+    private SmsBiz mSmsBiz;
 
     private LayoutInflater mInflater;
     private String mMsg;
@@ -151,6 +152,7 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
         mFabSend = (FloatingActionButton) findViewById(R.id.id_fab_send);
         mLayoutLoading = findViewById(R.id.id_layout_loading);
         mInflater = LayoutInflater.from(this);
+        mSmsBiz = new SmsBiz(this);
 
 
     }
@@ -291,7 +293,7 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
                 }
 
                 mLayoutLoading.setVisibility(View.VISIBLE);
-                mToTalCount = mSmsBiz.sendMsg(mContactNums, mMsg, mSendPi, mDeliverPi);
+                mToTalCount = mSmsBiz.sendMsg(mContactNums, buildSendMsg(mMsg), mSendPi, mDeliverPi);
                 mMsgSendCount = 0;
 
                 break;
@@ -302,6 +304,33 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
         }
 
+    }
+
+    private SendMsgBean buildSendMsg(String msg) {
+        String names = "";
+        String nums = "";
+
+        SendMsgBean msgBean = new SendMsgBean();
+
+
+        for (String contactName : mContactNames) {
+
+            names = contactName + ":";
+
+        }
+
+        for (String contactnum : mContactNums) {
+
+            nums = contactnum + ":";
+
+        }
+
+        msgBean.setMsg(msg);
+        msgBean.setNames(names.substring(0, names.length() - 1));
+        msgBean.setNumbers(nums.substring(0, nums.length() - 1));
+        msgBean.setFestivalName(mFestival.getName());
+
+        return msgBean;
     }
 
     @Override

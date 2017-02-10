@@ -21,7 +21,7 @@ public class SmsDBOpenHelper extends SQLiteOpenHelper {
         super(context.getApplicationContext(), DB_NAME, null, DB_VERSION);
     }
 
-    private static SmsDBOpenHelper getInstance(Context context) {
+    public static SmsDBOpenHelper getInstance(Context context) {
 
 
         if (mHelper == null) {
@@ -51,7 +51,7 @@ public class SmsDBOpenHelper extends SQLiteOpenHelper {
                 SendMsgBean.COLUMN_FES_NAME + " text , " +
                 SendMsgBean.COLUMN_MSG + " text , " +
                 SendMsgBean.COLUMN_NAMES + " text , " +
-                SendMsgBean.COLUMN_NUMBERS + " text , " +
+                SendMsgBean.COLUMN_NUMBERS + " text " +
                 ")";
 
         db.execSQL(sql);

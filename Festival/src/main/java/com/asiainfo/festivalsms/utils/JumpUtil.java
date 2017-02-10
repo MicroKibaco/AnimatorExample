@@ -10,7 +10,7 @@ import com.asiainfo.festivalsms.activity.SendMsgActivity;
  */
 public class JumpUtil {
 
-    public   static final String KEY_FESTIVAL_ID = "festivalid";
+    public static final String KEY_FESTIVAL_ID = "festivalid";
     public  static final String KEY_MSG_ID = "msgid";
 
 
