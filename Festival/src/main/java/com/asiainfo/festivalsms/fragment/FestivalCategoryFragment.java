@@ -38,15 +38,10 @@ public class FestivalCategoryFragment extends Fragment implements AdapterView.On
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         initView(view);
-        initListener();
         initDatas();
 
     }
 
-    private void initListener() {
-
-
-    }
 
     private void initDatas() {
         mGridView.setAdapter(mAdapter = new ArrayAdapter<Festival>(getActivity(), -1, FestivalLib.getInstance().getFestivals()) {
