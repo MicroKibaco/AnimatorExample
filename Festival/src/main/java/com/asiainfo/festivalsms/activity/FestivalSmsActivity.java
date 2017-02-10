@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.asiainfo.festivalsms.R;
 import com.asiainfo.festivalsms.fragment.FestivalCategoryFragment;
 import com.asiainfo.festivalsms.fragment.SmsHistoryFragment;
 
-public class FestivalSmsActivity extends FragmentActivity implements View.OnClickListener {
+public class FestivalSmsActivity extends FragmentActivity {
 
     final String[] mTitle = new String[]{"节日短信", "发送记录"};
     private TabLayout mSmsTablayout;
@@ -25,13 +24,9 @@ public class FestivalSmsActivity extends FragmentActivity implements View.OnClic
 
         initView();
         initListener();
-        initDatas();
     }
 
-    private void initDatas() {
 
-
-    }
 
     private void initListener() {
 
@@ -65,17 +60,6 @@ public class FestivalSmsActivity extends FragmentActivity implements View.OnClic
 
         mSmsTablayout = (TabLayout) findViewById(R.id.id_tablayout);
         mSmsViewPager = (ViewPager) findViewById(R.id.id_viewpager);
-
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-
-
-        }
 
     }
 }

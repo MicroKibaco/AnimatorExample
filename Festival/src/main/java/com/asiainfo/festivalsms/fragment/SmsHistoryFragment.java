@@ -19,6 +19,9 @@ import com.asiainfo.festivalsms.bean.SendMsgBean;
 import com.asiainfo.festivalsms.provider.SmsProvider;
 import com.asiainfo.festivalsms.view.FlowLayout;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * 描述: 创建时间:2/10/17/14:16 作者:小木箱 邮箱:yangzy3@asiainfo.com
  */
@@ -28,6 +31,8 @@ public class SmsHistoryFragment extends ListFragment {
     private static final int LOAD_ID = 1002;
     private LayoutInflater mInflater;
     private CursorAdapter mCursorAdapter;
+    private DateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm");
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -58,6 +63,9 @@ public class SmsHistoryFragment extends ListFragment {
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
 
+                String names = cursor.getString(cursor.getColumnIndex(SendMsgBean.COLUMN_NAMES));
+                long dateval = cursor.getLong(cursor.getColumnIndex(SendMsgBean.COLUMN_DATE));
+
                 TextView tvMsg = (TextView) view.findViewById(R.id.tv_msg);
                 FlowLayout fl = (FlowLayout) view.findViewById(R.id.fl_contacts);
                 TextView fes = (TextView) view.findViewById(R.id.id_tv_festival_name);
@@ -65,9 +73,8 @@ public class SmsHistoryFragment extends ListFragment {
 
                 tvMsg.setText(cursor.getColumnIndex(SendMsgBean.COLUMN_MSG));
                 fes.setText(cursor.getColumnIndex(SendMsgBean.COLUMN_FES_NAME));
-                tvDate.setText(cursor.getColumnIndex(SendMsgBean.COLUMN_DATE));
+                tvDate.setText(parseDate(dateval));
 
-                String names = cursor.getString(cursor.getColumnIndex(SendMsgBean.COLUMN_NAMES));
 
                 if (TextUtils.isEmpty(names)) {
                     return;
@@ -82,9 +89,17 @@ public class SmsHistoryFragment extends ListFragment {
                 }
 
             }
+
+
         };
 
         setListAdapter(mCursorAdapter);
+    }
+
+    private String parseDate(long dateval) {
+
+        return df.format(dateval);
+
     }
 
     private void addTag(String name, FlowLayout fl) {
