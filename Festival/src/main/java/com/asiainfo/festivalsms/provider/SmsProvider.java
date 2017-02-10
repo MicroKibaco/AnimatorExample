@@ -19,8 +19,10 @@ public class SmsProvider extends ContentProvider {
 
     private static final String AUTHORITY = "com.asiainfo.sms.provider.SmsProvider";
     public static final Uri URI_SMS_ALL = Uri.parse("content://" + AUTHORITY + "/sms");
+
     private static final int SMS_ALL = 0;
     private static final int SMS_ONE = 1;
+
     private static UriMatcher mUriMatcher;
 
     static {
@@ -70,13 +72,11 @@ public class SmsProvider extends ContentProvider {
         return cursor;
     }
 
-    @Nullable
     @Override
     public String getType(Uri uri) {
         return null;
     }
 
-    @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues values) {
 
@@ -89,6 +89,7 @@ public class SmsProvider extends ContentProvider {
 
         mDb = mHelper.getWritableDatabase();
         long rowId = mDb.insert(SendMsgBean.TABLE_NAME, null, values);
+
         if (rowId > 0) {
 
             notifiDateSetChaged();
