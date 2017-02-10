@@ -52,11 +52,12 @@ public class SmsProvider extends ContentProvider {
         switch (match) {
 
             case SMS_ONE:
+                break;
+
+            case SMS_ALL:
                 long id = ContentUris.parseId(uri);
                 selection = "_id = ?";
                 selectionArgs = new String[]{String.valueOf(id)};
-                break;
-            case SMS_ALL:
                 break;
             default:
                 throw new IllegalArgumentException("wrong URI:" + uri);
