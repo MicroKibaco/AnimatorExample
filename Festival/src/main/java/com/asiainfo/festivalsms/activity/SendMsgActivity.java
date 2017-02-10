@@ -146,13 +146,13 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
     private void initView() {
 
+        mInflater = LayoutInflater.from(this);
+        mSmsBiz = new SmsBiz(this);
         mEdMsg = (EditText) findViewById(R.id.id_et_content);
         mBtnAdd = (Button) findViewById(R.id.id_btn_add);
         mFlContacts = (FlowLayout) findViewById(R.id.id_fl_content);
         mFabSend = (FloatingActionButton) findViewById(R.id.id_fab_send);
         mLayoutLoading = findViewById(R.id.id_layout_loading);
-        mInflater = LayoutInflater.from(this);
-        mSmsBiz = new SmsBiz(this);
 
 
     }
@@ -278,12 +278,14 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
                 mMsg = mEdMsg.getText().toString();
 
+
                 if (mContactNums.size() == 0) {
 
                     Toast.makeText(this, "请先选择联系人", Toast.LENGTH_SHORT).show();
 
                     return;
                 }
+
 
                 if (TextUtils.isEmpty(mMsg)) {
 
@@ -292,7 +294,9 @@ public class SendMsgActivity extends Activity implements View.OnClickListener {
 
                 }
 
+
                 mLayoutLoading.setVisibility(View.VISIBLE);
+
                 mToTalCount = mSmsBiz.sendMsg(mContactNums, buildSendMsg(mMsg), mSendPi, mDeliverPi);
                 mMsgSendCount = 0;
 

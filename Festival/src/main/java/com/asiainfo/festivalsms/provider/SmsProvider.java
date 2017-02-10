@@ -20,8 +20,8 @@ public class SmsProvider extends ContentProvider {
     private static final String AUTHORITY = "com.asiainfo.sms.provider.SmsProvider";
     public static final Uri URI_SMS_ALL = Uri.parse("content://" + AUTHORITY + "/sms");
 
-    private static final int SMS_ALL = 0;
-    private static final int SMS_ONE = 1;
+    private static final int SMS_ALL = 0;//访问列表中的所有数据
+    private static final int SMS_ONE = 1;//访问列表的单条数据
 
     private static UriMatcher mUriMatcher;
 
@@ -51,12 +51,12 @@ public class SmsProvider extends ContentProvider {
         int match = mUriMatcher.match(uri);
         switch (match) {
 
-            case SMS_ALL:
+            case SMS_ONE:
                 long id = ContentUris.parseId(uri);
                 selection = "_id = ?";
                 selectionArgs = new String[]{String.valueOf(id)};
                 break;
-            case SMS_ONE:
+            case SMS_ALL:
                 break;
             default:
                 throw new IllegalArgumentException("wrong URI:" + uri);
@@ -67,6 +67,7 @@ public class SmsProvider extends ContentProvider {
         mDb = mHelper.getReadableDatabase();
         Cursor cursor = mDb.query(SendMsgBean.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
 
+        //用来在后台检测数据的变化，如果有变化就会有返回（因为在SmsHistoryFragment中使用了Loader）
         cursor.setNotificationUri(getContext().getContentResolver(), URI_SMS_ALL);
 
         return cursor;
@@ -96,7 +97,7 @@ public class SmsProvider extends ContentProvider {
             return ContentUris.withAppendedId(uri, rowId);
         }
 
-        return null;
+        return uri;
     }
 
     private void notifiDateSetChaged() {
