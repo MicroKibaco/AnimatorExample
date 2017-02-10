@@ -45,11 +45,7 @@ public class SmsDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-/***
- <p>
- * create tabletb_send_msg (  _id integer primary key autoincrement ,
- *  dateinteger , festivalName text , msg text , names text , numbers text )</p>
- */
+
         String sql = "create table " + SendMsgBean.TABLE_NAME + " ( " + "_id integer primary key autoincrement , "
                 + SendMsgBean.COLUMN_DATE + " integer , " +
                 SendMsgBean.COLUMN_FES_NAME + " text , " +

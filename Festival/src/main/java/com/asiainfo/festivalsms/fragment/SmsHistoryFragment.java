@@ -71,6 +71,12 @@ public class SmsHistoryFragment extends ListFragment {
                 TextView fes = (TextView) view.findViewById(R.id.id_tv_festival_name);
                 TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
 
+                /***
+                 *  TODO:下面三行代码有问题:数据库找不到下面三个字段:游标没有效果
+                 *  TODO:TextView.setText(int)' on a null object reference
+                 *  TODO:建议先了解以下数据库的基本操作,然后回头将这些Bug解决掉
+                 */
+
                 tvMsg.setText(cursor.getColumnIndex(SendMsgBean.COLUMN_MSG));
                 fes.setText(cursor.getColumnIndex(SendMsgBean.COLUMN_FES_NAME));
                 tvDate.setText(parseDate(dateval));
