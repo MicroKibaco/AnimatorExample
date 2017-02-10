@@ -45,7 +45,7 @@ public class SmsBiz {
         /***
          *  TODO :save(msg)有问题
          */
-        //  save(msg);
+        save(msg);
         int result = 0;
         for (String number : numbers) {
             int count = sendMsg(number, msg.getMsg(), sendPi, delivery);
