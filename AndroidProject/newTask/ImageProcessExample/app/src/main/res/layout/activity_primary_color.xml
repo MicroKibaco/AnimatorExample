@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+            android:id="@+id/pimary_color_imagview"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            />
+
+    <SeekBar
+            android:id="@+id/Skb_Hue"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/pimary_color_imagview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <SeekBar
+            android:layout_marginTop="40dp"
+            android:id="@+id/Skb_Saturation"
+            android:layout_below="@id/pimary_color_imagview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <SeekBar
+            android:layout_marginTop="40dp"
+            android:id="@+id/Skb_Lum"
+            android:layout_below="@id/pimary_color_imagview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
